@@ -1,0 +1,75 @@
+#include "../include/philo.h"
+
+/**
+ * @brief Handles errors related to thread creation and sets
+ * the extermination flag to indicate that the simulation must terminate.
+ *
+ * @param table Pointer to a t_table structure.
+ */
+void	error_pthread(t_table *table)
+{
+	printf("ERROR: Failed creating thread\n");
+	pthread_mutex_lock(&table->life);
+	table->extermination = 1;
+	pthread_mutex_unlock(&table->life);
+}
+
+/**
+ * @brief Joins all philosopher threads as well as the monitor thread.
+ *
+ * Waits for all philosopher and monitor threads to complete execution.
+ *
+ * @param table Pointer to a table structure.
+ * @return 0 if all threads are successfully joined, -1 otherwise.
+ */
+
+int	threads_union(t_table *table)
+{
+	unsigned int	i;
+
+	i = 0;
+	while (i < table->nbr_philos)
+	{
+		if (pthread_join(table->philos[i].theread_id, NULL) != 0)
+			return (-1);
+		i++;
+	}
+	if (pthread_join(table->monitor, NULL) != 0)
+		return (-1);
+	return (0);
+}
+
+/**
+ * @brief Creates philosopher threads and the monitor thread.
+ *
+ * If thread creation fails, it cleans up any already created threads.
+ *
+ * @param table Pointer to a table structure
+ * @return 0 if all threads are successfully created, -1 otherwise.
+ */
+int	create_threads(t_table *table)
+{
+	unsigned int	i;
+	unsigned int	j;
+
+	i = 0;
+	table->start_time = ft_my_time();
+	while (i < table->nbr_philos)
+	{
+		if (pthread_create(&table->philos[i].theread_id, NULL, &life_routine,
+				&table->philos[i]) != 0)
+		{
+			error_pthread(table);
+			j = 0;
+			while (j++ < i)
+				pthread_join(table->philos[j].theread_id, NULL);
+			return (-1);
+		}
+		i++;
+	}
+	if (pthread_create(&table->monitor, NULL, &death_routine, table) != 0)
+		error_pthread(table);
+	if (threads_union(table) == -1)
+		return (-1);
+	return (0);
+}
