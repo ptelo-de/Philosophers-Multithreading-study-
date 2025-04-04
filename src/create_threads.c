@@ -40,36 +40,53 @@ int	threads_union(t_table *table)
 }
 
 /**
- * @brief Creates philosopher threads and the monitor thread.
- *
- * If thread creation fails, it cleans up any already created threads.
- *
- * @param table Pointer to a table structure
- * @return 0 if all threads are successfully created, -1 otherwise.
- */
-int	create_threads(t_table *table)
-{
-	unsigned int	i;
-	unsigned int	j;
+ * @brief Calculate the current time in milliseconds using `gettimeofday`
+ * function.
 
-	i = 0;
-	table->start_time = ft_my_time();
-	while (i < table->nbr_philos)
-	{
-		if (pthread_create(&table->philos[i].theread_id, NULL, &life_routine,
-				&table->philos[i]) != 0)
-		{
-			error_pthread(table);
-			j = 0;
-			while (j++ < i)
-				pthread_join(table->philos[j].theread_id, NULL);
-			return (-1);
-		}
-		i++;
-	}
-	if (pthread_create(&table->monitor, NULL, &death_routine, table) != 0)
-		error_pthread(table);
-	if (threads_union(table) == -1)
-		return (-1);
-	return (0);
+ *
+ * @return The current time in milliseconds.
+ */
+unsigned int	ft_my_time(void)
+{
+	unsigned int	time;
+	struct timeval	tv;
+
+	gettimeofday(&tv, NULL);
+	time = tv.tv_sec * 1000 + tv.tv_usec / 1000;
+	return (time);
 }
+
+///**
+// * @brief Creates philosopher threads and the monitor thread.
+// *
+// * If thread creation fails, it cleans up any already created threads.
+// *
+// * @param table Pointer to a table structure
+// * @return 0 if all threads are successfully created, -1 otherwise.
+// */
+//int	create_threads(t_table *table)
+//{
+//	unsigned int	i;
+//	unsigned int	j;
+
+//	i = 0;
+//	table->start_time = ft_my_time();
+//	while (i < table->nbr_philos)
+//	{
+//		if (pthread_create(&table->philos[i].theread_id, NULL, &life_routine,
+//				&table->philos[i]) != 0)
+//		{
+//			error_pthread(table);
+//			j = 0;
+//			while (j++ < i)
+//				pthread_join(table->philos[j].theread_id, NULL);
+//			return (-1);
+//		}
+//		i++;
+//	}
+//	if (pthread_create(&table->monitor, NULL, &death_routine, table) != 0)
+//		error_pthread(table);
+//	if (threads_union(table) == -1)
+//		return (-1);
+//	return (0);
+//}

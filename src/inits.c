@@ -6,7 +6,7 @@
 /*   By: ptelo-de <ptelo-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 02:08:36 by ptelo-de          #+#    #+#             */
-/*   Updated: 2025/04/04 02:08:56 by ptelo-de         ###   ########.fr       */
+/*   Updated: 2025/04/04 16:12:51 by ptelo-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	clear_mem(t_table *table)
 	table->nbr_of_meals = 0;
 	table->nbr_philos = 0;
 	table->philos = NULL;
-	table->philos_eaten = 0;
+	table->philos_finished = 0;
 	table->start_time = 0;
 	table->time_to_die = 0;
 	table->time_to_eat = 0;
@@ -146,25 +146,36 @@ int	init_monitor(t_table *table)
  */
 int	init_philos(t_table *table)
 {
-	unsigned int	idx;
+	unsigned int	i;
 
 	table->philos = malloc(sizeof(t_philo) * table->nbr_philos);
 	if (!table->philos)
 		return (-1);
-	idx = 0;
-	while (table->nbr_philos > idx)
+	i = 0;
+	while (table->nbr_philos > i)
 	{
-		table->philos[idx].id = idx + 1;
-		table->philos[idx].meals_eaten = 0;
-		table->philos[idx].time_last_meal = 0;
-		table->philos[idx].table = table;
-		table->philos[idx].theread_id = 0;
-		if (table->philos[idx].id == 1)
-			table->philos[0].two_fork = &table->forks[table->nbr_philos - 1];
+		table->philos[i].id = i + 1;
+		table->philos[i].meals_eaten = 0;
+		table->philos[i].time_last_meal = 0;
+		table->philos[i].table = table;
+		table->philos[i].theread_id = 0;
+	
+		if (table->philos[i].id == 1)
+		{
+			table->philos[0].one_fork = &table->forks[table->nbr_philos - 1];
+			table->philos[0].one_fork_number = table->nbr_philos;
+			table->philos[0].two_fork = &table->forks[0];
+			table->philos[0].two_fork_number = 1;
+			
+		}
 		else
-			table->philos[idx].two_fork = &table->forks[idx - 1];
-		table->philos[idx].one_fork = &table->forks[idx];
-		idx++;
+		{
+			table->philos[i].two_fork = &table->forks[i - 1];
+			table->philos[i].two_fork_number = i;
+			table->philos[i].one_fork = &table->forks[i];
+			table->philos[i].one_fork_number = i + 1;
+		}
+		i++;
 	}
 	return (0);
 }

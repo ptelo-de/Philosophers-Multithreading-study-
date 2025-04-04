@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ptelo-de <ptelo-de@student.42lisboa.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/04 15:23:51 by ptelo-de          #+#    #+#             */
+/*   Updated: 2025/04/04 16:14:46 by ptelo-de         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PHILO_H
 # define PHILO_H
 
@@ -15,7 +27,7 @@
 # include <sys/wait.h>
 # include <unistd.h>
 
-typedef struct s_info	t_info;
+typedef struct s_table	t_table;
 
 typedef struct s_philo
 {
@@ -25,7 +37,10 @@ typedef struct s_philo
 	pthread_mutex_t		*two_fork;
 	unsigned int		time_last_meal;
 	unsigned int		meals_eaten;
-	t_info				*table;
+	t_table				*table;
+
+	int 				one_fork_number;
+	int					two_fork_number;
 }						t_philo;
 
 typedef struct s_table
@@ -37,7 +52,7 @@ typedef struct s_table
 	unsigned int		time_to_sleep;
 	unsigned int		time_to_think;
 	unsigned int		nbr_of_meals;
-	unsigned int		philos_eaten;
+	unsigned int		philos_finished;
 	pthread_mutex_t		*forks;
 	t_philo				*philos;
 	unsigned int		extermination;
@@ -58,9 +73,14 @@ int				init_table(int argc, char *argv[], t_table *table);
 int				init_forks(t_table *table);
 int				init_monitor(t_table *table);
 
+int				init_philos(t_table *table);
+
+void			initial_usleep(t_philo *philo);
+
 
 void			ft_putstr_fd(char *s, int fd);
 unsigned int	ft_atou(const char *nptr);
+unsigned int	ft_my_time(void);
 
 
 void			destroy_atributes(t_table	*table);
