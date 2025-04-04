@@ -6,7 +6,7 @@
 /*   By: ptelo-de <ptelo-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 15:23:51 by ptelo-de          #+#    #+#             */
-/*   Updated: 2025/04/04 16:14:46 by ptelo-de         ###   ########.fr       */
+/*   Updated: 2025/04/04 16:21:24 by ptelo-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,14 @@ int				init_monitor(t_table *table);
 
 int				init_philos(t_table *table);
 
+
+int	create_threads(t_table *table)
+
 void			initial_usleep(t_philo *philo);
+void			*life_routine(void *arg);
+
+
+void			*death_routine(void *arg);
 
 
 void			ft_putstr_fd(char *s, int fd);

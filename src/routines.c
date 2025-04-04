@@ -6,7 +6,7 @@
 /*   By: ptelo-de <ptelo-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 01:59:06 by ptelo-de          #+#    #+#             */
-/*   Updated: 2025/04/04 16:14:46 by ptelo-de         ###   ########.fr       */
+/*   Updated: 2025/04/04 16:20:31 by ptelo-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,20 +129,20 @@ void	dead_msg(t_table *table, unsigned int *i)
 		table->philos[*i].id);
 }
 
-//int	extreminate_if_finished(t_table *table)
-//{
-//	pthread_mutex_lock(&table->meals);
-//	if (table->philos_finished == table->nbr_philos)
-//	{
-//		table->extermination = 1;
-//		pthread_mutex_unlock(&table->life);
-//		pthread_mutex_unlock(&table->meals);
-//		return (1);
-//	}
-//	pthread_mutex_unlock(&table->life);
-//	pthread_mutex_unlock(&table->meals);
-//	return (0);
-//}
+int	extreminate_if_finished(t_table *table)
+{
+	pthread_mutex_lock(&table->meals);
+	if (table->philos_finished == table->nbr_philos)
+	{
+		table->extermination = 1;
+		pthread_mutex_unlock(&table->life);
+		pthread_mutex_unlock(&table->meals);
+		return (1);
+	}
+	pthread_mutex_unlock(&table->life);
+	pthread_mutex_unlock(&table->meals);
+	return (0);
+}
 void	*death_routine(void *arg)
 {
 	t_table			*table;
@@ -164,8 +164,8 @@ void	*death_routine(void *arg)
 			}
 			i++;
 		}
-		//if (extreminate_if_finished(table))
-		//	break ;
+		if (extreminate_if_finished(table))
+			break ;
 	}
 	return (NULL);
 }

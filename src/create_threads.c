@@ -64,29 +64,29 @@ unsigned int	ft_my_time(void)
 // * @param table Pointer to a table structure
 // * @return 0 if all threads are successfully created, -1 otherwise.
 // */
-//int	create_threads(t_table *table)
-//{
-//	unsigned int	i;
-//	unsigned int	j;
+int	create_threads(t_table *table)
+{
+	unsigned int	i;
+	unsigned int	j;
 
-//	i = 0;
-//	table->start_time = ft_my_time();
-//	while (i < table->nbr_philos)
-//	{
-//		if (pthread_create(&table->philos[i].theread_id, NULL, &life_routine,
-//				&table->philos[i]) != 0)
-//		{
-//			error_pthread(table);
-//			j = 0;
-//			while (j++ < i)
-//				pthread_join(table->philos[j].theread_id, NULL);
-//			return (-1);
-//		}
-//		i++;
-//	}
-//	if (pthread_create(&table->monitor, NULL, &death_routine, table) != 0)
-//		error_pthread(table);
-//	if (threads_union(table) == -1)
-//		return (-1);
-//	return (0);
-//}
+	i = 0;
+	table->start_time = ft_my_time();
+	while (i < table->nbr_philos)
+	{
+		if (pthread_create(&table->philos[i].theread_id, NULL, &life_routine,
+				&table->philos[i]) != 0)
+		{
+			error_pthread(table);
+			j = 0;
+			while (j++ < i)
+				pthread_join(table->philos[j].theread_id, NULL);
+			return (-1);
+		}
+		i++;
+	}
+	if (pthread_create(&table->monitor, NULL, &death_routine, table) != 0)
+		error_pthread(table);
+	if (threads_union(table) == -1)
+		return (-1);
+	return (0);
+}
