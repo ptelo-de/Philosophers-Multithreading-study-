@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   frees.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ptelo-de <ptelo-de@student.42lisboa.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/04 02:14:08 by ptelo-de          #+#    #+#             */
+/*   Updated: 2025/04/04 02:14:14 by ptelo-de         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/philo.h"
 
 /**
@@ -21,7 +33,8 @@ void	destroy_atributes(t_table	*table)
 }
 
 /**
- * @brief Frees memory allocated for the array of adresses of each t_philo structure.
+ * @brief Frees memory allocated for the array of 
+ * adresses of each t_philo structure.
  * and resets their fields.
  * 
  * @param table Pointer to a t_table structure.

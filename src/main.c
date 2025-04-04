@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ptelo-de <ptelo-de@student.42lisboa.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/04 02:23:36 by ptelo-de          #+#    #+#             */
+/*   Updated: 2025/04/04 02:28:22 by ptelo-de         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/philo.h"
 
 int	main(int argc, char *argv[])
@@ -6,7 +18,7 @@ int	main(int argc, char *argv[])
 
 	if (argc != 5 && argc != 6)
 		return (ft_putstr_fd("ERROR: Wrong number of elements\n", 2), 1);
-	clean_mem(&table);
+	clear_mem(&table);
 	if (check_args(argc, argv) == -1 || init_table(argc, argv, &table) == -1
 		|| init_forks(&table) == -1 || init_monitor(&table) == -1)
 	{

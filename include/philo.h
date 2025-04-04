@@ -50,6 +50,21 @@ typedef struct s_table
 	int					flag_print;
 }						t_table;
 
-void clean_mem(t_table *table);
+int				check_args(int argc, char *argv[]);
+void			clear_mem(t_table *table);
+
+int				init_table(int argc, char *argv[], t_table *table);
+
+int				init_forks(t_table *table);
+int				init_monitor(t_table *table);
+
+
+void			ft_putstr_fd(char *s, int fd);
+unsigned int	ft_atou(const char *nptr);
+
+
+void			destroy_atributes(t_table	*table);
+void			free_philos(t_table *table);
+void			free_forks(t_table *table);
 
 #endif

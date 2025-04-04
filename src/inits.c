@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   inits.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ptelo-de <ptelo-de@student.42lisboa.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/04 02:08:36 by ptelo-de          #+#    #+#             */
+/*   Updated: 2025/04/04 02:08:56 by ptelo-de         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/philo.h"
 
 /**
@@ -9,7 +21,7 @@
  * @param table the adress of t_table.
  * @return void.
  */
-void clear_mem(t_table *table)
+void	clear_mem(t_table *table)
 {
 	table->extermination = 0;
 	table->flag_life = 0;
@@ -55,11 +67,11 @@ int	init_table(int argc, char *argv[], t_table *table)
 	if (table->nbr_philos == 1)
 	{
 		usleep(table->time_to_die * 1000);
-		printf("0 1 was taken a fork\n%d 1 died\n", table->time_to_die); //as mensagens nao deviam estar separadas?
+		printf("0 1 was taken a fork\n%d 1 died\n", table->time_to_die);
 		return (-1);
 	}
 	else
-		table->time_to_think = 100; // change this, how to calculate?
+		table->time_to_think = 0;
 	return (0);
 }
 
@@ -94,6 +106,7 @@ int	init_forks(t_table *table)
 	}
 	return (0);
 }
+
 /**
  * @brief Inits mutexes for managing philosopher life, 
  * printing output, and tracking meals.

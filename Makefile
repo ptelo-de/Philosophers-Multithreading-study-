@@ -6,7 +6,7 @@ CFLAGS			=	-Wall -Wextra -Werror -gdwarf-4
 
 RM				=	rm -rf
 
-INC_DIR			=	includes/
+INC_DIR			=	include/
 
 SRC_DIR			=	src/
 

@@ -31,3 +31,20 @@ unsigned int	ft_atou(const char *nptr)
 	return (final_nr * sign);
 }
 
+/**
+ * @brief Writes a string to the specified file descriptor.
+ *
+ * @param s Pointer to the string to be written.
+ * @param fd File descriptor where the string will be written.
+ */
+void	ft_putstr_fd(char *s, int fd)
+{
+	int	idx;
+
+	idx = 0;
+	while (s[idx])
+	{
+		write(fd, &s[idx], 1);
+		idx++;
+	}
+}
