@@ -6,7 +6,7 @@
 /*   By: ptelo-de <ptelo-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 01:59:06 by ptelo-de          #+#    #+#             */
-/*   Updated: 2025/04/08 21:14:22 by ptelo-de         ###   ########.fr       */
+/*   Updated: 2025/04/08 22:34:32 by ptelo-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int	act(char *msg, t_philo *philo, unsigned int time)
 		return (0);
 	if (mutex_printf(msg, philo->table, philo))
 		return (0);
-	return (philo_wait(time, philo));
+	return (philo_wait(time));
 }
 void	meals_eaten_add(t_philo *philo)
 {
@@ -176,16 +176,17 @@ void	*death_routine(void *arg)
 		i = 0;
 		while (table->nbr_philos > i)
 		{
+			pthread_mutex_lock(&table->life);
 			if (table->philos[i].time_last_meal != 0 
 				&& (ft_my_time() - table->philos[i].time_last_meal) \
 				> table->time_to_die)
 			{
-				pthread_mutex_lock(&table->life);
 				table->extermination = 1;
 				pthread_mutex_unlock(&table->life);
 				dead_msg(table, &i);
 				return (NULL);
 			}
+			pthread_mutex_unlock(&table->life);
 			i++;
 		}
 		if (extreminate_if_finished(table))

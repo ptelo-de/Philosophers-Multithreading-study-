@@ -6,24 +6,25 @@
 /*   By: ptelo-de <ptelo-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 02:23:36 by ptelo-de          #+#    #+#             */
-/*   Updated: 2025/04/08 20:35:22 by ptelo-de         ###   ########.fr       */
+/*   Updated: 2025/04/08 22:27:06 by ptelo-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-int	philo_wait(unsigned int time, t_philo *philo)
+int	philo_wait(unsigned int time)
 {
-	unsigned int start_time;
+	usleep(time * 1000);
+	// unsigned int start_time;
 	
-	start_time = ft_my_time();
+	// start_time = ft_my_time();
 	
-	while (ft_my_time() -start_time < time)
-	{
-		usleep(100);
-		if (is_dead(philo->table))
-			return (0);
-	}
+	// while (ft_my_time() -start_time < time)
+	// {
+	// 	usleep(100);
+	// 	if (is_dead(philo->table))
+	// 		return (0);
+	// }
 	return(1);
 }
 
