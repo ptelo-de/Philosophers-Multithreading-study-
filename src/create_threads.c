@@ -56,14 +56,6 @@ unsigned int	ft_my_time(void)
 	return (time);
 }
 
-///**
-// * @brief Creates philosopher threads and the monitor thread.
-// *
-// * If thread creation fails, it cleans up any already created threads.
-// *
-// * @param table Pointer to a table structure
-// * @return 0 if all threads are successfully created, -1 otherwise.
-// */
 int	create_threads(t_table *table)
 {
 	unsigned int	i;
@@ -76,7 +68,7 @@ int	create_threads(t_table *table)
 		if (pthread_create(&table->philos[i].theread_id, NULL, &life_routine,
 				&table->philos[i]) != 0)
 		{
-			error_pthread(table);
+//			error_pthread(table);
 			j = 0;
 			while (j++ < i)
 				pthread_join(table->philos[j].theread_id, NULL);

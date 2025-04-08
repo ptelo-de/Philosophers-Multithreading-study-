@@ -6,7 +6,7 @@
 /*   By: ptelo-de <ptelo-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 02:08:36 by ptelo-de          #+#    #+#             */
-/*   Updated: 2025/04/04 16:12:51 by ptelo-de         ###   ########.fr       */
+/*   Updated: 2025/04/07 01:44:25 by ptelo-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,22 @@ void	clear_mem(t_table *table)
 	table->time_to_sleep = 0;
 	table->time_to_think = 0;
 }
-
+unsigned int	get_time_think(unsigned int nbr_philos,
+		unsigned int time_to_sleep, unsigned int time_to_eat)
+{
+	if (nbr_philos % 2 == 0)
+	{
+		if (time_to_eat > time_to_sleep)
+			return (time_to_eat - time_to_sleep);
+		return (0);
+	}
+	else
+	{
+		if (time_to_eat * 2 > time_to_sleep)
+			return (time_to_eat * 2 - time_to_sleep);
+		return (0);
+	}
+}
 /**
  * @brief Initializes the t_table structure with the input parameters.
  * Check if all the input are greater than 0.
@@ -71,7 +86,7 @@ int	init_table(int argc, char *argv[], t_table *table)
 		return (-1);
 	}
 	else
-		table->time_to_think = 0;
+		table->time_to_think = get_time_think(table->nbr_philos, table->time_to_sleep, table->time_to_eat);
 	return (0);
 }
 
