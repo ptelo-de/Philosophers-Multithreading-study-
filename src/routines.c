@@ -6,7 +6,7 @@
 /*   By: ptelo-de <ptelo-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 01:59:06 by ptelo-de          #+#    #+#             */
-/*   Updated: 2025/04/08 17:56:12 by ptelo-de         ###   ########.fr       */
+/*   Updated: 2025/04/08 19:37:35 by ptelo-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,18 +43,37 @@ int	mutex_printf(char *msg, t_table *table, t_philo *philo)
 
 int	take_forks(t_philo *philo)
 {
-	pthread_mutex_lock(philo->one_fork);
-	if (mutex_printf("has taken a fork\n", philo->table, philo))
+	if (philo->id % 2 == 0)
 	{
-		pthread_mutex_unlock(philo->one_fork);
-		return (0);
+		pthread_mutex_lock(philo->one_fork);
+		if (mutex_printf("has taken a fork\n", philo->table, philo))
+		{
+			pthread_mutex_unlock(philo->one_fork);
+			return (0);
+		}
+		pthread_mutex_lock(philo->two_fork);
+		if (mutex_printf("has taken a fork\n", philo->table, philo))
+		{
+			pthread_mutex_unlock(philo->two_fork);
+			pthread_mutex_unlock(philo->one_fork);
+			return (0);
+		}	
 	}
-	pthread_mutex_lock(philo->two_fork);
-	if (mutex_printf("has taken a fork\n", philo->table, philo))
+	else	
 	{
-		pthread_mutex_unlock(philo->two_fork);
-		pthread_mutex_unlock(philo->one_fork);
-		return (0);
+		pthread_mutex_lock(philo->two_fork);
+		if (mutex_printf("has taken a fork\n", philo->table, philo))
+		{
+			pthread_mutex_unlock(philo->two_fork);
+			return (0);
+		}
+		pthread_mutex_lock(philo->one_fork);
+		if (mutex_printf("has taken a fork\n", philo->table, philo))
+		{
+			pthread_mutex_unlock(philo->one_fork);
+			pthread_mutex_unlock(philo->two_fork);
+			return (0);
+		}	
 	}
 	return (1);
 }
@@ -69,18 +88,16 @@ void	get_time_last_meal(t_philo *philo)
 int	act(char *msg, t_philo *philo, unsigned int time)
 {
 	unsigned int	elapsed_time;
-	unsigned int	interval;
 
 	elapsed_time = 0;
-	interval = 6;
 	if (is_dead(philo->table))
 		return (0);
 	if (mutex_printf(msg, philo->table, philo))
 		return (0);
 	while (elapsed_time < time)
 	{
-		usleep(interval * 1000);
-		elapsed_time += interval;
+		usleep(6000);
+		elapsed_time += 6;
 		if (is_dead(philo->table))
 			return (0);
 	}
@@ -100,7 +117,6 @@ void	*life_routine(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	initial_usleep(philo);
 	while (!is_dead(philo->table))
 	{
 		if (!take_forks(philo))
@@ -113,11 +129,19 @@ void	*life_routine(void *arg)
 			break ;
 		}
 		meals_eaten_add(philo);
-		pthread_mutex_unlock(philo->two_fork);
-		pthread_mutex_unlock(philo->one_fork);
+		if (philo->id % 2 == 0)
+		{
+			pthread_mutex_unlock(philo->two_fork);
+			pthread_mutex_unlock(philo->one_fork);	
+		}
+		else
+		{
+			pthread_mutex_unlock(philo->one_fork);
+			pthread_mutex_unlock(philo->two_fork);	
+		}
 		if (!act("is sleeping\n", philo, philo->table->time_to_sleep))
 			break ;
-		if (!act("is thinking\n", philo, philo->table->time_to_think))
+		if (!act("is thinking\n", philo, 0))
 			break ;
 	}
 	return (NULL);

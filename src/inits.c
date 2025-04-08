@@ -6,7 +6,7 @@
 /*   By: ptelo-de <ptelo-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 02:08:36 by ptelo-de          #+#    #+#             */
-/*   Updated: 2025/04/08 18:05:31 by ptelo-de         ###   ########.fr       */
+/*   Updated: 2025/04/08 18:45:47 by ptelo-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	init_table(int argc, char *argv[], t_table *table)
 		return (-1);
 	}
 	else
-		table->time_to_think = get_time_think(table->nbr_philos, table->time_to_sleep, table->time_to_eat);
+		table->time_to_think = 0; //get_time_think(table->nbr_philos, table->time_to_sleep, table->time_to_eat);
 	return (0);
 }
 
