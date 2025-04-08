@@ -46,6 +46,7 @@ int	threads_union(t_table *table)
  *
  * @return The current time in milliseconds.
  */
+
 unsigned int	ft_my_time(void)
 {
 	unsigned int	time;
@@ -68,7 +69,7 @@ int	create_threads(t_table *table)
 		if (pthread_create(&table->philos[i].theread_id, NULL, &life_routine,
 				&table->philos[i]) != 0)
 		{
-//			error_pthread(table);
+			error_pthread(table);
 			j = 0;
 			while (j++ < i)
 				pthread_join(table->philos[j].theread_id, NULL);

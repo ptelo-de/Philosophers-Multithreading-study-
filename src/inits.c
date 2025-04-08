@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   inits.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ptelo-de <ptelo-de@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: ptelo-de <ptelo-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 02:08:36 by ptelo-de          #+#    #+#             */
-/*   Updated: 2025/04/07 01:44:25 by ptelo-de         ###   ########.fr       */
+/*   Updated: 2025/04/08 18:05:31 by ptelo-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ int	init_forks(t_table *table)
 		return (-1);
 	}
 	i = 0;
-	while (table->nbr_philos > i)
+	while (i < table->nbr_philos)
 	{
 		if (pthread_mutex_init(&table->forks[i], NULL) != 0)
 		{
@@ -131,6 +131,7 @@ int	init_forks(t_table *table)
  */
 int	init_monitor(t_table *table)
 {
+	table->monitor = 0;
 	if (pthread_mutex_init(&table->life, NULL) != 0)
 	{
 		ft_putstr_fd("ERROR: Failed creating mutex\n", 2);
@@ -185,10 +186,10 @@ int	init_philos(t_table *table)
 		}
 		else
 		{
-			table->philos[i].two_fork = &table->forks[i - 1];
-			table->philos[i].two_fork_number = i;
-			table->philos[i].one_fork = &table->forks[i];
-			table->philos[i].one_fork_number = i + 1;
+			table->philos[i].one_fork = &table->forks[i - 1];
+			table->philos[i].one_fork_number = i;
+			table->philos[i].two_fork = &table->forks[i];
+			table->philos[i].two_fork_number = i + 1;
 		}
 		i++;
 	}

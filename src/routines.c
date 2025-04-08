@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routines.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ptelo-de <ptelo-de@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: ptelo-de <ptelo-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 01:59:06 by ptelo-de          #+#    #+#             */
-/*   Updated: 2025/04/07 01:36:26 by ptelo-de         ###   ########.fr       */
+/*   Updated: 2025/04/08 17:56:12 by ptelo-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,7 +159,6 @@ void	*death_routine(void *arg)
 				&& (ft_my_time() - table->philos[i].time_last_meal) \
 				> table->time_to_die)
 			{
-				printf("here\n\n");
 				table->extermination = 1;
 				dead_msg(table, &i);
 				return (NULL);

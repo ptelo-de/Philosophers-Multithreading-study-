@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ptelo-de <ptelo-de@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: ptelo-de <ptelo-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 02:23:36 by ptelo-de          #+#    #+#             */
-/*   Updated: 2025/04/06 16:07:55 by ptelo-de         ###   ########.fr       */
+/*   Updated: 2025/04/08 18:09:13 by ptelo-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
+
 void print_stuff(t_table *info)
 {
 	int i = 0;
@@ -40,8 +41,9 @@ int	main(int argc, char *argv[])
 	if (argc != 5 && argc != 6)
 		return (ft_putstr_fd("ERROR: Wrong number of elements\n", 2), 1);
 	clear_mem(&table);
-	if (check_args(argc, argv) == -1 || init_table(argc, argv, &table) == -1
-		|| init_forks(&table) == -1 || init_monitor(&table) == -1)
+	if (check_args(argc, argv) == -1 || init_table(argc, argv, &table) == -1)
+		return (5);
+	if (init_forks(&table) == -1 || init_monitor(&table) == -1)
 	{
 		destroy_atributes(&table);
 		return (2);
@@ -57,6 +59,6 @@ int	main(int argc, char *argv[])
 		destroy_atributes(&table);
 		return (4);
 	}
-	destroy_atributes(&table); //fix this so you dont fuck pc
+	destroy_atributes(&table);
 	return (0);
 }
