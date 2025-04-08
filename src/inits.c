@@ -6,7 +6,7 @@
 /*   By: ptelo-de <ptelo-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 02:08:36 by ptelo-de          #+#    #+#             */
-/*   Updated: 2025/04/08 18:45:47 by ptelo-de         ###   ########.fr       */
+/*   Updated: 2025/04/08 20:01:29 by ptelo-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void	clear_mem(t_table *table)
 	table->time_to_die = 0;
 	table->time_to_eat = 0;
 	table->time_to_sleep = 0;
-	table->time_to_think = 0;
 }
 unsigned int	get_time_think(unsigned int nbr_philos,
 		unsigned int time_to_sleep, unsigned int time_to_eat)
@@ -85,8 +84,6 @@ int	init_table(int argc, char *argv[], t_table *table)
 		printf("0 1 was taken a fork\n%d 1 died\n", table->time_to_die);
 		return (-1);
 	}
-	else
-		table->time_to_think = 0; //get_time_think(table->nbr_philos, table->time_to_sleep, table->time_to_eat);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: ptelo-de <ptelo-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 02:23:36 by ptelo-de          #+#    #+#             */
-/*   Updated: 2025/04/08 18:09:13 by ptelo-de         ###   ########.fr       */
+/*   Updated: 2025/04/08 20:00:41 by ptelo-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	main(int argc, char *argv[])
 		destroy_atributes(&table);
 		return (3);
 	}
-	print_stuff(&table);
+//	print_stuff(&table);
 	if (create_threads(&table) == -1)
 	{
 		destroy_atributes(&table);

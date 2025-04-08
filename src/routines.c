@@ -6,7 +6,7 @@
 /*   By: ptelo-de <ptelo-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 01:59:06 by ptelo-de          #+#    #+#             */
-/*   Updated: 2025/04/08 19:37:35 by ptelo-de         ###   ########.fr       */
+/*   Updated: 2025/04/08 19:50:10 by ptelo-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,9 +85,9 @@ void	get_time_last_meal(t_philo *philo)
 	pthread_mutex_unlock(&philo->table->life);
 }
 
-int	act(char *msg, t_philo *philo, unsigned int time)
+int	act(char *msg, t_philo *philo, float time)
 {
-	unsigned int	elapsed_time;
+	float	elapsed_time;
 
 	elapsed_time = 0;
 	if (is_dead(philo->table))
@@ -96,8 +96,8 @@ int	act(char *msg, t_philo *philo, unsigned int time)
 		return (0);
 	while (elapsed_time < time)
 	{
-		usleep(6000);
-		elapsed_time += 6;
+		usleep(100);
+		elapsed_time += 0.1;
 		if (is_dead(philo->table))
 			return (0);
 	}

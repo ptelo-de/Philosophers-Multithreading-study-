@@ -6,7 +6,7 @@
 /*   By: ptelo-de <ptelo-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 15:23:51 by ptelo-de          #+#    #+#             */
-/*   Updated: 2025/04/08 17:00:29 by ptelo-de         ###   ########.fr       */
+/*   Updated: 2025/04/08 20:01:00 by ptelo-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ typedef struct s_table
 	unsigned int		time_to_die;
 	unsigned int		time_to_eat;
 	unsigned int		time_to_sleep;
-	unsigned int		time_to_think;
 	unsigned int		nbr_of_meals;
 	unsigned int		philos_finished;
 	pthread_mutex_t		*forks;
