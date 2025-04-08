@@ -6,7 +6,7 @@
 /*   By: ptelo-de <ptelo-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 15:23:51 by ptelo-de          #+#    #+#             */
-/*   Updated: 2025/04/08 20:01:00 by ptelo-de         ###   ########.fr       */
+/*   Updated: 2025/04/08 21:19:09 by ptelo-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,4 +93,9 @@ void			destroy_atributes(t_table	*table);
 void			free_philos(t_table *table);
 void			free_forks(t_table *table);
 
+unsigned int	ft_my_time(void);
+int				philo_wait(unsigned int time, t_philo *philo);
+int				is_dead(t_table *table);
+
+int				act(char *msg, t_philo *philo, unsigned int time);
 #endif

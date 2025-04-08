@@ -6,7 +6,7 @@
 /*   By: ptelo-de <ptelo-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 02:08:36 by ptelo-de          #+#    #+#             */
-/*   Updated: 2025/04/08 20:01:29 by ptelo-de         ###   ########.fr       */
+/*   Updated: 2025/04/08 21:22:36 by ptelo-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ unsigned int	get_time_think(unsigned int nbr_philos,
  * @param table Pointer to the t_table structure to be initialized.
  * @return 0 on success, -1 if an error occurs.
  */
+
 int	init_table(int argc, char *argv[], t_table *table)
 {
 	table->nbr_philos = ft_atou(argv[1]);
@@ -78,12 +79,6 @@ int	init_table(int argc, char *argv[], t_table *table)
 	if (table->time_to_die == 0 || table->time_to_eat == 0
 		|| table->time_to_sleep == 0 || table->nbr_philos == 0)
 		return (-1);
-	if (table->nbr_philos == 1)
-	{
-		usleep(table->time_to_die * 1000);
-		printf("0 1 was taken a fork\n%d 1 died\n", table->time_to_die);
-		return (-1);
-	}
 	return (0);
 }
 

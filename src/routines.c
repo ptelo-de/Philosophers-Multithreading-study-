@@ -6,7 +6,7 @@
 /*   By: ptelo-de <ptelo-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 01:59:06 by ptelo-de          #+#    #+#             */
-/*   Updated: 2025/04/08 19:50:10 by ptelo-de         ###   ########.fr       */
+/*   Updated: 2025/04/08 21:14:22 by ptelo-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,23 +85,13 @@ void	get_time_last_meal(t_philo *philo)
 	pthread_mutex_unlock(&philo->table->life);
 }
 
-int	act(char *msg, t_philo *philo, float time)
+int	act(char *msg, t_philo *philo, unsigned int time)
 {
-	float	elapsed_time;
-
-	elapsed_time = 0;
 	if (is_dead(philo->table))
 		return (0);
 	if (mutex_printf(msg, philo->table, philo))
 		return (0);
-	while (elapsed_time < time)
-	{
-		usleep(100);
-		elapsed_time += 0.1;
-		if (is_dead(philo->table))
-			return (0);
-	}
-	return (1);
+	return (philo_wait(time, philo));
 }
 void	meals_eaten_add(t_philo *philo)
 {
@@ -141,14 +131,22 @@ void	*life_routine(void *arg)
 		}
 		if (!act("is sleeping\n", philo, philo->table->time_to_sleep))
 			break ;
-		if (!act("is thinking\n", philo, 0))
-			break ;
+		if (!(philo->table->nbr_philos % 2))
+		{
+			if (!act("is thinking\n",philo,  0))
+				break ;
+			
+		}
+		else if(philo->table->time_to_sleep < philo->table->time_to_eat * 2)
+		{
+			if (!act("is thinking\n",philo,  philo->table->time_to_eat * 2 - philo->table->time_to_sleep))
+				break ;
+		}
 	}
 	return (NULL);
 }
 void	dead_msg(t_table *table, unsigned int *i)
 {
-	pthread_mutex_unlock(&table->life);
 	printf("%lu %d died\n", ft_my_time() - table->start_time,
 		table->philos[*i].id);
 }
@@ -158,12 +156,12 @@ int	extreminate_if_finished(t_table *table)
 	pthread_mutex_lock(&table->meals);
 	if (table->philos_finished == table->nbr_philos)
 	{
+		pthread_mutex_lock(&table->life);
 		table->extermination = 1;
 		pthread_mutex_unlock(&table->life);
 		pthread_mutex_unlock(&table->meals);
 		return (1);
 	}
-	pthread_mutex_unlock(&table->life);
 	pthread_mutex_unlock(&table->meals);
 	return (0);
 }
@@ -176,14 +174,15 @@ void	*death_routine(void *arg)
 	while (!table->extermination)
 	{
 		i = 0;
-		pthread_mutex_lock(&table->life);
 		while (table->nbr_philos > i)
 		{
 			if (table->philos[i].time_last_meal != 0 
 				&& (ft_my_time() - table->philos[i].time_last_meal) \
 				> table->time_to_die)
 			{
+				pthread_mutex_lock(&table->life);
 				table->extermination = 1;
+				pthread_mutex_unlock(&table->life);
 				dead_msg(table, &i);
 				return (NULL);
 			}

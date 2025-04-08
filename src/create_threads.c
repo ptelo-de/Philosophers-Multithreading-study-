@@ -56,6 +56,13 @@ unsigned int	ft_my_time(void)
 	time = tv.tv_sec * 1000 + tv.tv_usec / 1000;
 	return (time);
 }
+void solo_philo(t_table *table)
+{
+	pthread_mutex_lock(table->philos[0].one_fork);
+	act("has taken a fork\n", &(table->philos[0]), table->time_to_die);
+	pthread_mutex_unlock(table->philos[0].one_fork);
+	act("died\n", &(table->philos[0]), 0);
+}
 
 int	create_threads(t_table *table)
 {
@@ -64,6 +71,8 @@ int	create_threads(t_table *table)
 
 	i = 0;
 	table->start_time = ft_my_time();
+	if (table->nbr_philos == 1)
+		return (solo_philo(table), -1);
 	while (i < table->nbr_philos)
 	{
 		if (pthread_create(&table->philos[i].theread_id, NULL, &life_routine,
