@@ -2,7 +2,7 @@ NAME			=	philo
 
 CC				=	cc
 
-CFLAGS			=	-Wall -Wextra -Werror -g -pthread -O3 #-fsanitize=thread 
+CFLAGS			=	-Wall -Wextra -Werror -g -pthread #-O3 #-fsanitize=thread 
 
 RM				=	rm -rf
 
@@ -36,5 +36,6 @@ re: fclean all
 # valgrind --tool=helgrind ./philo 3 800 200 200
 #./philo 2 410 200 200
 #./philo 200 410 200 200
+#  clear && ./philo 200 500 60 200 10
 
 

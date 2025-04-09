@@ -6,27 +6,11 @@
 /*   By: ptelo-de <ptelo-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 02:23:36 by ptelo-de          #+#    #+#             */
-/*   Updated: 2025/04/08 22:27:06 by ptelo-de         ###   ########.fr       */
+/*   Updated: 2025/04/09 13:24:21 by ptelo-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
-
-int	philo_wait(unsigned int time)
-{
-	usleep(time * 1000);
-	// unsigned int start_time;
-	
-	// start_time = ft_my_time();
-	
-	// while (ft_my_time() -start_time < time)
-	// {
-	// 	usleep(100);
-	// 	if (is_dead(philo->table))
-	// 		return (0);
-	// }
-	return(1);
-}
 
 void print_stuff(t_table *info)
 {
@@ -38,15 +22,6 @@ void print_stuff(t_table *info)
 		printf("philo %d\nfork1; %p\nfork2:%p\n\n", i + 1, \
 		table.philos[i].one_fork, \
 		table.philos[i].two_fork);
-		i++;
-	}
-	i = 0;
-	printf("\n");
-	while (i < (int)table.nbr_philos)
-	{
-		printf("philo %d\nfork1; %d\nfork2:%d\n\n", i + 1, \
-		table.philos[i].one_fork_number, \
-		table.philos[i].two_fork_number);
 		i++;
 	}
 }

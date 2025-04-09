@@ -6,20 +6,39 @@
 /*   By: ptelo-de <ptelo-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 12:48:13 by ptelo-de          #+#    #+#             */
-/*   Updated: 2025/04/08 15:24:18 by ptelo-de         ###   ########.fr       */
+/*   Updated: 2025/04/09 13:13:43 by ptelo-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-//p1come p2espera p3come p4espera por dois(3 e 1)
-void	initial_usleep(t_philo *philo)
+int	philo_wait(unsigned int time)
 {
-	if (philo->id == philo->table->nbr_philos)//para o caso que ha 3 philosophers
-		usleep(philo->table->time_to_eat * 2 * 1000);
-	else if (philo->id % 2 == 0)
-	{
-		usleep(philo->table->time_to_eat *1000);
-	}
+	usleep(time * 1000);
+	return(1);
 }
 
+void	get_time_last_meal(t_philo *philo)
+{
+	pthread_mutex_lock(&philo->table->life);
+	philo->time_last_meal = ft_my_time();
+	pthread_mutex_unlock(&philo->table->life);
+}
+
+int	act(char *msg, t_philo *philo, unsigned int time)
+{
+	if (is_dead(philo->table))
+		return (0);
+	if (mutex_printf(msg, philo->table, philo))
+		return (0);
+	return (philo_wait(time));
+}
+
+void	meals_eaten_add(t_philo *philo)
+{
+	pthread_mutex_lock(&philo->table->meals);
+	philo->meals_eaten++;
+	if (philo->meals_eaten == philo->table->nbr_of_meals)
+		philo->table->philos_finished++;
+	pthread_mutex_unlock(&philo->table->meals);
+}

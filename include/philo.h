@@ -6,7 +6,7 @@
 /*   By: ptelo-de <ptelo-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 15:23:51 by ptelo-de          #+#    #+#             */
-/*   Updated: 2025/04/08 22:41:14 by ptelo-de         ###   ########.fr       */
+/*   Updated: 2025/04/09 13:24:04 by ptelo-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,6 @@ typedef struct s_philo
 	unsigned int		time_last_meal;
 	unsigned int		meals_eaten;
 	t_table				*table;
-
-	int 				one_fork_number;
-	int					two_fork_number;
 }						t_philo;
 
 typedef struct s_table
@@ -96,6 +93,8 @@ void			free_forks(t_table *table);
 unsigned int	ft_my_time(void);
 int				philo_wait(unsigned int time);
 int				is_dead(t_table *table);
-
+void			get_time_last_meal(t_philo *philo);
 int				act(char *msg, t_philo *philo, unsigned int time);
+void			meals_eaten_add(t_philo *philo);
+int	mutex_printf(char *msg, t_table *table, t_philo *philo);
 #endif

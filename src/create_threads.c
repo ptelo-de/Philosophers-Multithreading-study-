@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   create_threads.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ptelo-de <ptelo-de@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/09 13:15:46 by ptelo-de          #+#    #+#             */
+/*   Updated: 2025/04/09 13:26:14 by ptelo-de         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/philo.h"
 
 /**
@@ -42,11 +54,8 @@ int	threads_union(t_table *table)
 /**
  * @brief Calculate the current time in milliseconds using `gettimeofday`
  * function.
-
- *
  * @return The current time in milliseconds.
  */
-
 unsigned int	ft_my_time(void)
 {
 	unsigned int	time;
