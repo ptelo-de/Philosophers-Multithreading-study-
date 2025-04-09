@@ -6,7 +6,7 @@
 /*   By: ptelo-de <ptelo-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 13:14:51 by ptelo-de          #+#    #+#             */
-/*   Updated: 2025/04/09 13:15:01 by ptelo-de         ###   ########.fr       */
+/*   Updated: 2025/04/09 17:44:57 by ptelo-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,31 @@ int	mutex_printf(char *msg, t_table *table, t_philo *philo)
 	pthread_mutex_unlock(&table->life);
 	pthread_mutex_unlock(&table->print);
 	return (1);
+}
+
+/**
+ * @brief initializes values in the stack memory.
+ *
+ * Integers are initialized to 0, 
+ * and pointers are initialized to NULL.
+ *
+ * @param table the adress of t_table.
+ * @return void.
+ */
+void	clear_mem(t_table *table)
+{
+	table->extermination = 0;
+	table->flag_life = 0;
+	table->flag_meals = 0;
+	table->flag_print = 0;
+	table->forks = NULL;
+	table->nbr_of_meals = 0;
+	table->nbr_philos = 0;
+	table->philos = NULL;
+	table->philos_finished = 0;
+	table->start_time = 0;
+	table->time_to_die = 0;
+	table->time_to_eat = 0;
+	table->time_to_sleep = 0;
+	table->time_to_think = 0;
 }

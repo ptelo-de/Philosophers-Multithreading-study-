@@ -6,7 +6,7 @@
 /*   By: ptelo-de <ptelo-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 01:59:06 by ptelo-de          #+#    #+#             */
-/*   Updated: 2025/04/09 13:22:22 by ptelo-de         ###   ########.fr       */
+/*   Updated: 2025/04/09 17:58:24 by ptelo-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int	is_dead(t_table *table)
 	return (0);
 }
 
-
 static int	take_forks_for_odd_id(t_philo *philo)
 {
 	if (philo->id % 2)
@@ -41,10 +40,11 @@ static int	take_forks_for_odd_id(t_philo *philo)
 			pthread_mutex_unlock(philo->one_fork);
 			pthread_mutex_unlock(philo->two_fork);
 			return (0);
-		}	
+		}
 	}
 	return (1);
 }
+
 int	take_forks(t_philo *philo)
 {
 	if (philo->id % 2 == 0)
@@ -61,24 +61,25 @@ int	take_forks(t_philo *philo)
 			pthread_mutex_unlock(philo->two_fork);
 			pthread_mutex_unlock(philo->one_fork);
 			return (0);
-		}	
+		}
 	}
 	return (take_forks_for_odd_id(philo));
-	
 }
-void safe_fork_unlock(t_philo *philo)
-{	
+
+void	safe_fork_unlock(t_philo *philo)
+{
 	if (philo->id % 2 == 0)
 	{
 		pthread_mutex_unlock(philo->two_fork);
-		pthread_mutex_unlock(philo->one_fork);	
+		pthread_mutex_unlock(philo->one_fork);
 	}
 	else
 	{
 		pthread_mutex_unlock(philo->one_fork);
-		pthread_mutex_unlock(philo->two_fork);	
+		pthread_mutex_unlock(philo->two_fork);
 	}
 }
+
 void	*life_routine(void *arg)
 {
 	t_philo	*philo;
@@ -98,14 +99,8 @@ void	*life_routine(void *arg)
 		safe_fork_unlock(philo);
 		if (!act("is sleeping\n", philo, philo->table->time_to_sleep))
 			break ;
-		if((philo->table->nbr_philos % 2) && philo->table->time_to_sleep < philo->table->time_to_eat * 2)
-		{
-			if (!act("is thinking\n",philo,  philo->table->time_to_eat * 2 - philo->table->time_to_sleep))
-				break ;
-		}
-		else if (!act("is thinking\n",philo,  0))
-				break ;
+		if (!act("is thinking\n", philo, 0))
+			break ;
 	}
 	return (NULL);
 }
-

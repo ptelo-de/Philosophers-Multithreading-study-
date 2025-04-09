@@ -6,7 +6,7 @@
 /*   By: ptelo-de <ptelo-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 12:36:08 by ptelo-de          #+#    #+#             */
-/*   Updated: 2025/04/09 13:26:26 by ptelo-de         ###   ########.fr       */
+/*   Updated: 2025/04/09 17:58:57 by ptelo-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	*death_routine(void *arg)
 		while (table->nbr_philos > ++i)
 		{
 			pthread_mutex_lock(&table->life);
-			if (table->philos[i].time_last_meal != 0 
+			if (table->philos[i].time_last_meal != 0
 				&& (ft_my_time() - table->philos[i].time_last_meal) \
 				> table->time_to_die)
 			{

@@ -6,25 +6,12 @@
 /*   By: ptelo-de <ptelo-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 02:23:36 by ptelo-de          #+#    #+#             */
-/*   Updated: 2025/04/09 13:24:21 by ptelo-de         ###   ########.fr       */
+/*   Updated: 2025/04/09 17:52:42 by ptelo-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-void print_stuff(t_table *info)
-{
-	int i = 0;
-	t_table table = *info;
-	
-	while (i < (int)table.nbr_philos)
-	{
-		printf("philo %d\nfork1; %p\nfork2:%p\n\n", i + 1, \
-		table.philos[i].one_fork, \
-		table.philos[i].two_fork);
-		i++;
-	}
-}
 int	main(int argc, char *argv[])
 {
 	t_table	table;
@@ -44,7 +31,6 @@ int	main(int argc, char *argv[])
 		destroy_atributes(&table);
 		return (3);
 	}
-//	print_stuff(&table);
 	if (create_threads(&table) == -1)
 	{
 		destroy_atributes(&table);

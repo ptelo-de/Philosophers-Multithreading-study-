@@ -6,7 +6,7 @@
 /*   By: ptelo-de <ptelo-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 12:48:13 by ptelo-de          #+#    #+#             */
-/*   Updated: 2025/04/09 13:13:43 by ptelo-de         ###   ########.fr       */
+/*   Updated: 2025/04/09 17:46:59 by ptelo-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	philo_wait(unsigned int time)
 {
 	usleep(time * 1000);
-	return(1);
+	return (1);
 }
 
 void	get_time_last_meal(t_philo *philo)

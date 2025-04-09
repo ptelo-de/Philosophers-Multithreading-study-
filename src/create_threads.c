@@ -6,7 +6,7 @@
 /*   By: ptelo-de <ptelo-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 13:15:46 by ptelo-de          #+#    #+#             */
-/*   Updated: 2025/04/09 13:26:14 by ptelo-de         ###   ########.fr       */
+/*   Updated: 2025/04/09 17:48:34 by ptelo-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,8 @@ unsigned int	ft_my_time(void)
 	time = tv.tv_sec * 1000 + tv.tv_usec / 1000;
 	return (time);
 }
-void solo_philo(t_table *table)
+
+void	solo_philo(t_table *table)
 {
 	pthread_mutex_lock(table->philos[0].one_fork);
 	act("has taken a fork\n", &(table->philos[0]), table->time_to_die);
@@ -78,10 +79,10 @@ int	create_threads(t_table *table)
 	unsigned int	i;
 	unsigned int	j;
 
-	i = 0;
 	table->start_time = ft_my_time();
 	if (table->nbr_philos == 1)
 		return (solo_philo(table), -1);
+	i = 0;
 	while (i < table->nbr_philos)
 	{
 		if (pthread_create(&table->philos[i].theread_id, NULL, &life_routine,

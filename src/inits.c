@@ -6,37 +6,12 @@
 /*   By: ptelo-de <ptelo-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 02:08:36 by ptelo-de          #+#    #+#             */
-/*   Updated: 2025/04/09 13:27:03 by ptelo-de         ###   ########.fr       */
+/*   Updated: 2025/04/09 17:51:58 by ptelo-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-/**
- * @brief initializes values in the stack memory.
- *
- * Integers are initialized to 0, 
- * and pointers are initialized to NULL.
- *
- * @param table the adress of t_table.
- * @return void.
- */
-void	clear_mem(t_table *table)
-{
-	table->extermination = 0;
-	table->flag_life = 0;
-	table->flag_meals = 0;
-	table->flag_print = 0;
-	table->forks = NULL;
-	table->nbr_of_meals = 0;
-	table->nbr_philos = 0;
-	table->philos = NULL;
-	table->philos_finished = 0;
-	table->start_time = 0;
-	table->time_to_die = 0;
-	table->time_to_eat = 0;
-	table->time_to_sleep = 0;
-}
 /**
  * @brief Initializes the t_table structure with the input parameters.
  * Check if all the input are greater than 0.
@@ -63,6 +38,11 @@ int	init_table(int argc, char *argv[], t_table *table)
 	if (table->time_to_die == 0 || table->time_to_eat == 0
 		|| table->time_to_sleep == 0 || table->nbr_philos == 0)
 		return (-1);
+	if ((table->nbr_philos % 2)
+		&& table->time_to_sleep < table->time_to_eat * 2)
+	{
+		table->time_to_think = table->time_to_eat * 2 - table->time_to_sleep;
+	}
 	return (0);
 }
 
@@ -129,6 +109,20 @@ int	init_monitor(t_table *table)
 	return (0);
 }
 
+static void	initial_fork_asignation(t_philo *philo, int i)
+{
+	if (philo->id == 1)
+	{
+		philo->one_fork = &philo->table->forks[philo->table->nbr_philos - 1];
+		philo->two_fork = &philo->table->forks[0];
+	}
+	else
+	{
+		philo->one_fork = &philo->table->forks[i - 1];
+		philo->two_fork = &philo->table->forks[i];
+	}
+}
+
 /**
  * @brief Initializes the philosopher structures
  * and assigns forks to each philosopher.
@@ -150,18 +144,8 @@ int	init_philos(t_table *table)
 		table->philos[i].meals_eaten = 0;
 		table->philos[i].time_last_meal = 0;
 		table->philos[i].table = table;
-		table->philos[i].theread_id = 0;	
-		if (table->philos[i].id == 1)
-		{
-			table->philos[0].one_fork = &table->forks[table->nbr_philos - 1];
-			table->philos[0].two_fork = &table->forks[0];
-			
-		}
-		else
-		{
-			table->philos[i].one_fork = &table->forks[i - 1];
-			table->philos[i].two_fork = &table->forks[i];
-		}
+		table->philos[i].theread_id = 0;
+		initial_fork_asignation(&table->philos[i], i);
 	}
 	return (0);
 }

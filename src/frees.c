@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   frees.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ptelo-de <ptelo-de@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: ptelo-de <ptelo-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 02:14:08 by ptelo-de          #+#    #+#             */
-/*   Updated: 2025/04/04 02:14:14 by ptelo-de         ###   ########.fr       */
+/*   Updated: 2025/04/09 18:11:37 by ptelo-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,20 @@ void	destroy_atributes(t_table	*table)
 	if (table->forks)
 		free_forks(table);
 	if (table->flag_life)
+	{
 		pthread_mutex_destroy(&table->life);
+		table->flag_life = 0;
+	}
 	if (table->flag_print)
+	{
 		pthread_mutex_destroy(&table->print);
+		table->flag_print = 0;
+	}
 	if (table->flag_meals)
+	{
 		pthread_mutex_destroy(&table->meals);
+		table->flag_meals = 0;
+	}
 }
 
 /**
@@ -51,7 +60,8 @@ void	free_philos(t_table *table)
 		table->philos[i].table = NULL;
 		i++;
 	}
-	free(table->philos);
+	if (table->philos)
+		free(table->philos);
 	table->philos = NULL;
 }
 
