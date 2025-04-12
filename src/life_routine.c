@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   life_routine.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ptelo-de <ptelo-de@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ptelo-de <ptelo-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 01:59:06 by ptelo-de          #+#    #+#             */
-/*   Updated: 2025/04/09 17:58:24 by ptelo-de         ###   ########.fr       */
+/*   Updated: 2025/04/12 21:59:16 by ptelo-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void	*life_routine(void *arg)
 		safe_fork_unlock(philo);
 		if (!act("is sleeping\n", philo, philo->table->time_to_sleep))
 			break ;
-		if (!act("is thinking\n", philo, 0))
+		if (!act("is thinking\n", philo, philo->table->time_to_think))
 			break ;
 	}
 	return (NULL);

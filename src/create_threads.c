@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_threads.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ptelo-de <ptelo-de@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ptelo-de <ptelo-de@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 13:15:46 by ptelo-de          #+#    #+#             */
-/*   Updated: 2025/04/09 17:48:34 by ptelo-de         ###   ########.fr       */
+/*   Updated: 2025/04/12 21:58:38 by ptelo-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,8 @@ int	create_threads(t_table *table)
 		{
 			error_pthread(table);
 			j = 0;
-			while (j++ < i)
-				pthread_join(table->philos[j].theread_id, NULL);
+			while (j < i)
+				pthread_join(table->philos[j++].theread_id, NULL);
 			return (-1);
 		}
 		i++;
